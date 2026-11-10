@@ -1,0 +1,275 @@
+{
+  "review_date": "2026-11-08",
+  "label_mapping": {
+    "0": "REAL (source-grounded central claims)",
+    "1": "FAKE (explicit synthetic factual mutation)"
+  },
+  "pending": [
+    {
+      "id": "user_nasa",
+      "observed_fake_percent": 63.1,
+      "status": "exact text unavailable; no substitute"
+    }
+  ],
+  "exact_cases": [
+    {
+      "id": "user_cern",
+      "label": 0,
+      "kind": "user-supplied factual summary",
+      "title": "CERN Announces Discovery of a Particle Consistent with the Higgs Boson",
+      "text": "On July 4, 2012, scientists at CERN announced the discovery of a new particle consistent with the long-sought Higgs boson. The discovery was made using data collected by the ATLAS and CMS experiments at the Large Hadron Collider near Geneva, Switzerland.\nResearchers explained that the new particle was an important step toward understanding how fundamental particles acquire mass. The discovery followed decades of theoretical research and experimental work involving thousands of scientists from around the world.\nThe results represented a major milestone in particle physics and provided strong evidence supporting the Standard Model of particle physics.",
+      "observed": 70.41,
+      "source": "https://home.cern/science/physics/higgs-boson",
+      "sha256": "eacd96d99d4ad1ffa89d9b9f652302ba7327875354070963a85144a3bde2c8e8"
+    },
+    {
+      "id": "user_argentina",
+      "label": 0,
+      "kind": "user-supplied factual summary",
+      "title": "Argentina Wins the 2022 FIFA World Cup",
+      "text": "Argentina won the 2022 FIFA World Cup after defeating France in a dramatic final at Lusail Stadium in Qatar on December 18, 2022. The match ended 3-3 after extra time, with Argentina winning 4-2 in the penalty shootout.\nLionel Messi scored twice for Argentina, while Kylian Mbapp\u00e9 scored three goals for France. The match was widely regarded as one of the most memorable World Cup finals in football history.\nThe victory marked Argentina's third FIFA World Cup title, following previous triumphs in 1978 and 1986. Messi was awarded the Golden Ball as the tournament's best player, completing a historic achievement in his international football career.",
+      "observed": 69.63,
+      "source": "https://fdp.fifa.org/assetspublic/ce44/r2864/pdf/FullTimeMatchReport-English.pdf",
+      "sha256": "f8193602d419f43bf0a991dc87c60517a017093096fc9926377321243b6f822c"
+    },
+    {
+      "id": "user_fifa",
+      "label": 1,
+      "kind": "user-supplied explicit synthetic fabrication",
+      "title": "FIFA Announces That All Football Matches Will Be Reduced to 60 Minutes Starting in 2027",
+      "text": "FIFA Announces That All Football Matches Will Be Reduced to 60 Minutes Starting in 2027\nThe International Federation of Association Football (FIFA) has reportedly announced a major change to football regulations, stating that all professional football matches worldwide will be reduced from 90 minutes to 60 minutes starting in January 2027.\nAccording to the fictional announcement, the new format would consist of two 30-minute halves, replacing the traditional 45-minute periods. The supposed decision would apply to domestic leagues, international competitions, and future World Cup tournaments.\nThe fabricated report also claims that FIFA officials approved the change to make matches faster and more attractive to younger audiences. Football clubs and national associations would allegedly be required to adopt the new regulations before the start of the 2027 season.",
+      "observed": 68.82,
+      "source": "https://www.theifab.com/laws/latest/the-duration-of-the-match/",
+      "sha256": "3cd8081ab22aa9778412476e97a8860b9c273669105a5bce0d34094dbd7b66d3"
+    }
+  ],
+  "controlled_pairs": [
+    {
+      "id": "cern",
+      "domain": "science",
+      "source": "https://home.cern/science/physics/higgs-boson",
+      "real": "On 4 July 2012, the ATLAS and CMS collaborations at CERN announced a new particle consistent with the Higgs boson. Their measurements came from experiments using the Large Hadron Collider. The announcement marked a major result in the search for the particle associated with the Higgs field.",
+      "fake": "On 4 July 2012, the ATLAS and CMS collaborations at CERN announced that the Higgs boson had been ruled out. Their measurements came from experiments using the Large Hadron Collider. The announcement marked a major result in the search for the particle associated with the Higgs field.",
+      "false_claim": "Contradicts the announced discovery, replacing it with exclusion.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "7523f834d252ece6976f1cf4aa132c06c7733f8081c31262f56e8ed72a3e0ebc",
+      "fake_sha256": "d64a449a5947de5798e7b914ccd63d98fdbf910c6c4b442a7a8335d7fcd7694b"
+    },
+    {
+      "id": "argentina",
+      "domain": "sports",
+      "source": "https://fdp.fifa.org/assetspublic/ce44/r2864/pdf/FullTimeMatchReport-English.pdf",
+      "real": "Argentina defeated France in the 2022 World Cup final on 18 December at Lusail Stadium. The teams were level at three goals each after extra time, before Argentina won the penalty shootout four to two. Lionel Messi scored twice for Argentina and Kylian Mbappe scored three times for France.",
+      "fake": "France defeated Argentina in the 2022 World Cup final on 18 December at Lusail Stadium. The teams were level at three goals each after extra time, before France won the penalty shootout four to two. Lionel Messi scored twice for Argentina and Kylian Mbappe scored three times for France.",
+      "false_claim": "Reverses the winner of the recorded final and shootout.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "8784c3be7042550e77855ef0cf3aba62f29bc8306bfde1a9723493a2743b0822",
+      "fake_sha256": "c10d98fbaa12d88a483d1e90c8bf7fdc4fa4d53cbf818c43ce05d8b5b2bd2854"
+    },
+    {
+      "id": "ifab",
+      "domain": "sports",
+      "source": "https://www.theifab.com/laws/latest/the-duration-of-the-match/",
+      "real": "The standard football match duration in IFAB Law 7 consists of two halves lasting 45 minutes each. The rules also provide for additional time to account for stoppages. A shorter duration requires agreement before the match and must comply with the rules of the competition.",
+      "fake": "The standard football match duration in IFAB Law 7 consists of two halves lasting 30 minutes each. The rules also provide for additional time to account for stoppages. A shorter duration requires agreement before the match and must comply with the rules of the competition.",
+      "false_claim": "Changes the standard halves from 45 to 30 minutes; frozen review date 2026-11-08.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "9977748c5bc473c12dbd21c5610f688594b10b9dda111a2977abae9f631ea4f6",
+      "fake_sha256": "173add46e22bb12803285b199758345c4849f980f83ea9ede713d038f590b7f1"
+    },
+    {
+      "id": "fed",
+      "domain": "economy",
+      "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20221214a.htm",
+      "real": "On 14 December 2022, the Federal Reserve raised its target range for the federal funds rate to 4.25 to 4.50 percent. The committee also said that it would continue reducing its holdings of Treasury securities and agency securities. The statement described the central bank's monetary policy decision.",
+      "fake": "On 14 December 2022, the Federal Reserve lowered its target range for the federal funds rate to zero to 0.25 percent. The committee also said that it would continue reducing its holdings of Treasury securities and agency securities. The statement described the central bank's monetary policy decision.",
+      "false_claim": "Changes both direction and level of the documented policy-rate decision.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "5a404858787a5ed14c40e94caff12af692c227100ad2973f9daa8ee1ccf81977",
+      "fake_sha256": "65e4561a67399662848c76da08cf7f301e073976cb3129d5e89e81068b876321"
+    },
+    {
+      "id": "ecb",
+      "domain": "economy",
+      "source": "https://www.ecb.europa.eu/press/pr/date/2023/html/ecb.mp230914~aab39f8c21.en.html",
+      "real": "The European Central Bank announced an increase in its three key interest rates on 14 September 2023. The deposit facility rate was set to rise to 4.00 percent with effect from 20 September. The decision formed part of the Governing Council's response to inflation in the euro area.",
+      "fake": "The European Central Bank announced a reduction in its three key interest rates on 14 September 2023. The deposit facility rate was set to fall to minus 4.00 percent with effect from 20 September. The decision formed part of the Governing Council's response to inflation in the euro area.",
+      "false_claim": "Reverses rate direction and changes positive 4% to negative 4%.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "4d635dcf888e3aa50da6ec754af8d3708e13ccb02ca99a95692e88860577e48a",
+      "fake_sha256": "dcf6fe4841a4f56300a67bdc3ea53054205d47c38474741c0d0eb8802d00c56c"
+    },
+    {
+      "id": "who",
+      "domain": "public_health",
+      "source": "https://www.who.int/europe/news-room/05-05-2023-statement-on-the-fifteenth-meeting-of-the-international-health-regulations-%282005%29-emergency-committee-regarding-the-coronavirus-disease-%28covid-19%29-pandemic",
+      "real": "On 5 May 2023, the World Health Organization announced that COVID-19 no longer constituted a public health emergency of international concern. The announcement did not mean that the disease had disappeared. The organization continued to describe COVID-19 as an ongoing health issue requiring long-term management.",
+      "fake": "On 5 May 2023, the World Health Organization announced that COVID-19 had been eradicated worldwide. The announcement meant that the disease had disappeared. The organization said that COVID-19 was no longer an ongoing health issue and did not require long-term management.",
+      "false_claim": "Falsely equates ending emergency status with eradication, contrary to the same statement.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "c4fb44503a6ad8f4f5397e81d2de4c046110d0d331cb8db876dd0bf8df05bf0e",
+      "fake_sha256": "02c48f24337abe79994d20b94b01fcc4c945ab2c084726d183b28309cc134949"
+    },
+    {
+      "id": "apple",
+      "domain": "technology",
+      "source": "https://www.apple.com/newsroom/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/",
+      "real": "Apple introduced the iPhone 15 and iPhone 15 Plus on 12 September 2023. Both models included a USB-C connector for charging and data transfer. The company also announced that the phones would feature Dynamic Island and a 48-megapixel main camera as part of the product update.",
+      "fake": "Apple introduced the iPhone 15 and iPhone 15 Plus on 12 September 2023. Both models retained a Lightning connector instead of USB-C for charging and data transfer. The company also announced that the phones would feature Dynamic Island and a 48-megapixel main camera as part of the product update.",
+      "false_claim": "Replaces the announced USB-C connector with Lightning.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "ece9fd6df09027491d14509a1eac4391c5513a5cddaee7d1ba092bdb53f42acb",
+      "fake_sha256": "7c830c2e6d4b0890b08cd1e40eea76a5e14da3d6f6cb5439e42d383efb8a30a2"
+    },
+    {
+      "id": "un_population",
+      "domain": "demographics",
+      "source": "https://www.un.org/development/desa/pd/content/india-overtakes-china-world%E2%80%99s-most-populous-country",
+      "real": "In April 2023, the United Nations projected that India would overtake China as the world's most populous country during that month. Its population analysis examined the transition between the two countries. The organization said that future population trends should be considered in national development planning.",
+      "fake": "In April 2023, the United Nations projected that Japan would overtake China as the world's most populous country during that month. Its population analysis examined the transition between the two countries. The organization said that future population trends should be considered in national development planning.",
+      "false_claim": "Substitutes Japan for India in the identified UN projection.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "0602312eff6aaf24fa55b1b3f8857977c27b7d6b3a13a037ce3931856a433c6a",
+      "fake_sha256": "a24fcbb143ab263892ecdcf54dfc8529618c15ec73b1a47873343f03c33dd8e1"
+    },
+    {
+      "id": "nobel_physics",
+      "domain": "science",
+      "source": "https://www.nobelprize.org/uploads/2023/10/advanced-physicsprize2023-2.pdf",
+      "real": "The 2023 Nobel Prize in Physics was awarded to Pierre Agostini, Ferenc Krausz and Anne L'Huillier. Their work developed experimental methods for producing extremely short light pulses used to investigate the motion of electrons. The award recognized research in attosecond physics and the study of matter.",
+      "fake": "The 2023 Nobel Prize in Physics was awarded to Elon Musk, Jeff Bezos and Mark Zuckerberg. Their work developed experimental methods for producing extremely short light pulses used to investigate the motion of electrons. The award recognized research in attosecond physics and the study of matter.",
+      "false_claim": "Replaces the named laureates with three non-recipients.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "d674f7f5eb92321fe3445edc6551be5591d850f7f4471406087d5e101b36408f",
+      "fake_sha256": "5f380952b7865c8774700924565fb00177d7ee7a635d16645315f8e349a26be6"
+    },
+    {
+      "id": "nobel_literature",
+      "domain": "culture",
+      "source": "https://www.nobelprize.org/uploads/2023/10/press-literatureprize2023.pdf",
+      "real": "Norwegian author Jon Fosse received the 2023 Nobel Prize in Literature. The Swedish Academy recognized his work in plays and prose. The announcement honored a writer whose literary work spans different forms and has reached readers and theatre audiences through translation and performance.",
+      "fake": "British author J. K. Rowling received the 2023 Nobel Prize in Literature. The Swedish Academy recognized her work in plays and prose. The announcement honored a writer whose literary work spans different forms and has reached readers and theatre audiences through translation and performance.",
+      "false_claim": "Replaces the documented literature laureate with a non-recipient.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "424d4ab9d4801929e3732319d5e821280342b39b174ce2495587a05e58671a47",
+      "fake_sha256": "f398f6b988b948d70232a30ccb9cd99e63973b9cdd00a0cd9d2d34f84305ea6e"
+    },
+    {
+      "id": "croatia",
+      "domain": "public_policy",
+      "source": "https://www.ecb.europa.eu/press/pr/date/2023/html/ecb.pr230101~2046d0fd6f.en.html",
+      "real": "Croatia adopted the euro on 1 January 2023, becoming the twentieth European Union member state to use the currency. The change replaced the Croatian kuna with the euro. The European Central Bank announced the introduction as the country's participation in the euro area took effect.",
+      "fake": "Croatia adopted the United States dollar on 1 January 2023, becoming the first European Union member state to use that currency. The change replaced the Croatian kuna with the dollar. The European Central Bank announced the introduction as the country's participation in the dollar area took effect.",
+      "false_claim": "Replaces euro adoption with a nonexistent dollar adoption.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "6b05be27e9b03ff1d6fbf4856177f4eb228ffa46afdd3171b1fd222339db8369",
+      "fake_sha256": "c3f07094d1011118a6fe1640049f3f24a9919e99aad7b22818b837f2df5bb36d"
+    },
+    {
+      "id": "cptpp",
+      "domain": "trade_policy",
+      "source": "https://www.gov.uk/government/news/uk-signs-treaty-to-join-vast-indo-pacific-trade-group-as-new-data-shows-major-economic-benefits",
+      "real": "The United Kingdom signed the treaty to join the Comprehensive and Progressive Agreement for Trans-Pacific Partnership on 16 July 2023. The signing took place in New Zealand. The government described the agreement as an expansion of Britain's trade relationships with countries in the Indo-Pacific region.",
+      "fake": "The United Kingdom signed a treaty to withdraw from the Comprehensive and Progressive Agreement for Trans-Pacific Partnership on 16 July 2023. The signing took place in New Zealand. The government described the agreement as a termination of Britain's trade relationships with countries in the Indo-Pacific region.",
+      "false_claim": "Changes the accession treaty to a withdrawal treaty.",
+      "real_kind": "Assistant-authored short summary grounded in primary source; not verbatim published article",
+      "fake_kind": "Assistant-authored synthetic mutation; not naturally occurring misinformation",
+      "real_sha256": "e2a06baac8cee49798d0f51b3f55b4061d5f401286b95fec14f056b744d9286c",
+      "fake_sha256": "26fa6de473d4bed4c31b2f675eae46906043aa4ad26d8bde00ebb2aaaee80164"
+    }
+  ],
+  "schema_version": 1,
+  "model_sha256": "adebf54a41f4219d7c5f05ece9d933d93f13f5a05f1c005a31b5dfb6b61d4c0a",
+  "warning": "Selected, correlated diagnostic examples are not a representative accuracy benchmark. REAL labels concern source-supported central claims; synthetic FAKE labels document deliberate false assertions.",
+  "reference_only_published_excerpts": [
+    {
+      "id": "published_fed",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20221214a.htm",
+      "selector": "#article p",
+      "paragraph_limit": 5,
+      "words": 375,
+      "bytes": 2466,
+      "original_sha256": "463640dcb31dd8da6acd06ac7a13e0ca4fc97b005d25364136c3c07ce48db621",
+      "mutated_sha256": "b23f612fdd2b354c9e85cb26efa9afa0346a16c015a63dee7277e17e0c4e4f10",
+      "substitution_count": 1,
+      "real_fake_percent": 58.059795972052676,
+      "mutated_fake_percent": 58.059795972052676,
+      "old": "4-1/4 to 4-1/2",
+      "new": "0 to 1/4",
+      "false_claim": "Replaces the Federal Reserve's announced 4.25\u20134.50% target with 0\u20130.25%.",
+      "real_kind": "Extracted paragraphs of an official published release, without page title",
+      "fake_kind": "Synthetic factual mutation of the original excerpt"
+    },
+    {
+      "id": "published_who",
+      "url": "https://www.who.int/news/item/05-05-2023-statement-on-the-fifteenth-meeting-of-the-international-health-regulations-(2005)-emergency-committee-regarding-the-coronavirus-disease-(covid-19)-pandemic",
+      "selector": "article p",
+      "paragraph_limit": 8,
+      "words": 638,
+      "bytes": 4518,
+      "original_sha256": "4c028163dbcef82c85e732d20927ddc513c42bf96f22536244ad67c371fd5bad",
+      "mutated_sha256": "c9c881a2a6d1e4fa90133ca43732db3fd2e93aa916e016ff1592296771e7491f",
+      "substitution_count": 1,
+      "real_fake_percent": 56.955004432781344,
+      "mutated_fake_percent": 56.577900101542276,
+      "old": "no longer constitutes",
+      "new": "still constitutes",
+      "false_claim": "Reverses the official emergency-status determination.",
+      "real_kind": "Extracted paragraphs of an official published release, without page title",
+      "fake_kind": "Synthetic factual mutation of the original excerpt"
+    },
+    {
+      "id": "published_ecb",
+      "url": "https://www.ecb.europa.eu/press/pr/date/2023/html/ecb.mp230914~aab39f8c21.en.html",
+      "selector": "main p",
+      "paragraph_limit": 8,
+      "words": 580,
+      "bytes": 3756,
+      "original_sha256": "7fa6bf56c3a34ca418c0b7d694b9b99558a3bf0543948809420b1b0e47aee610",
+      "mutated_sha256": "ee1bd23cdb67e8a02512a71cd32d11ebf1e317a7e863de55bb426092ddc48ee9",
+      "substitution_count": 2,
+      "real_fake_percent": 66.65969368328022,
+      "mutated_fake_percent": 66.219100577257,
+      "old": "by 25 basis points",
+      "new": "by 250 basis points",
+      "false_claim": "Multiplies the announced rate increase by ten.",
+      "real_kind": "Extracted paragraphs of an official published release, without page title",
+      "fake_kind": "Synthetic factual mutation of the original excerpt"
+    },
+    {
+      "id": "published_apple",
+      "url": "https://www.apple.com/newsroom/2023/09/apple-debuts-iphone-15-and-iphone-15-plus/",
+      "selector": "article .pagebody.text",
+      "paragraph_limit": 5,
+      "words": 825,
+      "bytes": 5373,
+      "original_sha256": "0c442885b7c9ffef7830bf41df248397225fd82f0837aa23fc4f01c1e798fc9c",
+      "mutated_sha256": "2a3f4e534407b074e978faa5d4150b9d27d048b6f6a34f034508a6a67cb37919",
+      "substitution_count": 1,
+      "real_fake_percent": 42.78310011198296,
+      "mutated_fake_percent": 42.229019137594456,
+      "old": "USB\u2011C",
+      "new": "Lightning",
+      "false_claim": "Replaces the announced iPhone 15 connector.",
+      "real_kind": "Extracted paragraphs of an official published release, without page title",
+      "fake_kind": "Synthetic factual mutation of the original excerpt"
+    }
+  ],
+  "holdout_reference": {
+    "path": "WELFake_Dataset.csv",
+    "sha256": "665331424230fc452e9482c3547a6a199a2c29745ade8d236950d1d105223773",
+    "label_provenance": "Original dataset annotations, not independently verified ground truth; evaluated only by audit_welfake_holdout.py.",
+    "examples_embedded": false
+  }
+}

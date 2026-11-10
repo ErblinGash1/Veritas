@@ -1,0 +1,95 @@
+# Local cleanup archives and verification output (restore instructions in docs).
+/_local_archive/
+
+# Python environments and regenerable caches.
+.venv/
+.venv-*/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local secrets; retain template visibility without reading or changing them.
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Original model-path exclusions; review-wide artifact rules also apply below.
+/ai-python-service/english_fake_news_pipeline_v2.pkl
+/ai-python-service/english_fake_news_pipeline_v3.pkl
+/ai-python-service/english_fake_news_pipeline_backup.pkl
+/ai-python-service/disinfomm_claims_v1.pkl
+/ai-python-service/fake_news_model.pkl
+/ai-python-service/tfidf_vectorizer.pkl
+
+# Local training data is preserved on disk, not added to Git accidentally.
+/WELFake_Dataset.csv
+/alb-fake-news-corpus.csv
+/data/disinfomm/*.csv
+
+# Temporary editor/tool output. Component ignores cover vendor, node_modules, dist.
+*.tmp
+*.temp
+*~
+
+# Local cleanup archives and temporary investigation files.
+/_local_archive/
+/welfake-audit.json
+/welfake-audit-*.json
+
+# Local-only duplicate of the protected English V1 model.
+/ai-python-service/english_fake_news_pipeline.pkl
+
+# Local tool-generated files.
+*.log
+# Professor review: source only, including future additions.
+*.pkl
+*.pickle
+*.joblib
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.onnx
+*.pt
+*.pth
+*.safetensors
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.pem
+*.key
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+*.tgz
+*.bz2
+*.xz
+*.pdf
+node_modules/
+vendor/
+dist/
+build/
+reports/
+coverage/
+.aws/
+.codex/
+auth.json
+id_rsa
+id_ed25519
+github-changes.txt
+*-audit*.json

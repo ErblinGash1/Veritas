@@ -1,0 +1,26 @@
+VERITAS — FastAPI URL configuration
+
+1) Open veritas-backend/config/services.php. Inside the returned array, add:
+
+    'fastapi' => [
+        'url' => env('FASTAPI_URL', 'http://127.0.0.1:5001'),
+    ],
+
+Do not replace the full services.php; add only this entry before the array's closing bracket.
+
+2) In veritas-backend/.env, add:
+
+FASTAPI_URL=http://127.0.0.1:5001
+
+For production, use the internal FastAPI address available to Laravel, not an external user-supplied URL. Keep this endpoint private and protected.
+
+3) On the backend terminal:
+
+php artisan config:clear
+php artisan route:list --path=api/v1
+
+4) On the frontend, test Albanian text, English text, URL, History pagination and Analytics charts. ML is experimental and optional in the existing design.
+
+Security: Keep .env and APP_KEY private. Rotate the APP_KEY before production because it was shared in chat; plan migration of any encrypted data before rotating. Set APP_DEBUG=false in production, use a dedicated DB user/password, and enable HTTPS, auth/rate limits as appropriate.
+
+Limitations: This revision is syntax-checked, not integration-tested with the user's running Laravel/MySQL/FastAPI instance. URL fetch SSRF protection is still implemented in FastAPI, not in Laravel. Do not make the API public without reviewing security, CORS, CSRF, authentication, and abuse controls.

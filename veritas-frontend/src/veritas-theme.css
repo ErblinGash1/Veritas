@@ -1,0 +1,123 @@
+
+/* VERITAS — Premium Design Foundation */
+
+:root {
+  font-family: Inter, "Segoe UI", sans-serif;
+  color-scheme: dark;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background: #080d18;
+}
+
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow-x: clip;
+  background:
+    radial-gradient(
+      ellipse 65% 45% at 50% -12%,
+      rgba(39, 105, 190, 0.18),
+      transparent 75%
+    ),
+    radial-gradient(
+      ellipse 35% 35% at 100% 50%,
+      rgba(34, 93, 148, 0.07),
+      transparent 85%
+    ),
+    #080d18 !important;
+  color: #f4f7fc;
+}
+
+.app-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(
+      rgba(139, 177, 222, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(139, 177, 222, 0.025) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 75%
+  );
+}
+
+.app-shell button {
+  transition:
+    transform 220ms cubic-bezier(.2, .8, .2, 1),
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    color 220ms ease;
+}
+
+@media (hover: hover) {
+  .app-shell button:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+}
+
+.app-shell button:not(:disabled):active {
+  transform: translateY(0) scale(.98);
+}
+
+.app-shell button:focus-visible,
+.app-shell a:focus-visible,
+.app-shell input:focus-visible,
+.app-shell textarea:focus-visible,
+.app-shell select:focus-visible {
+  outline: 2px solid #8bd1ff;
+  outline-offset: 3px;
+}
+
+.app-shell button:disabled {
+  cursor: not-allowed;
+  opacity: .55;
+}
+
+.app-shell input,
+.app-shell textarea,
+.app-shell select {
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease;
+}
+
+.app-shell input:focus,
+.app-shell textarea:focus,
+.app-shell select:focus {
+  border-color: #7cc8fa;
+  box-shadow: 0 0 0 3px rgba(88, 171, 255, .12);
+}
+
+.app-shell ::selection {
+  background: rgba(97, 174, 255, .3);
+  color: #fff;
+}
+
+/* Respect accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  .app-shell *,
+  .app-shell *::before,
+  .app-shell *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

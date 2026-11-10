@@ -1,0 +1,128 @@
+html, body {
+  background-color: #000000 !important;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---------- Ambient Background & Scan Effect (Vesper.ai Style) ---------- */
+
+.scan-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 50% -20%, rgba(129, 140, 248, 0.15), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(45, 212, 191, 0.08), transparent 50%),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent, rgba(129, 140, 248, 0.06), transparent);
+  animation: scanSweep 8s linear infinite;
+}
+
+@keyframes scanSweep {
+  0% { top: -140px; }
+  100% { top: 100%; }
+}
+
+/* ---------- Blur fade-up entrance animation ---------- */
+
+@keyframes blurFadeUp {
+  from { opacity: 0; filter: blur(16px); transform: translateY(28px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+.animate-blur-fade-up {
+  opacity: 0;
+  animation: blurFadeUp 0.9s ease-out forwards;
+}
+
+/* ---------- Glass-border signature ---------- */
+
+.glass-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.glass-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---------- Vesper / Noise Button Styles ---------- */
+
+.vesper-noise-wrapper {
+  display: inline-flex;
+  padding: 1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #818CF8 0%, #2DD4BF 50%, #818CF8 100%);
+  background-size: 200% auto;
+  transition: all 0.3s ease;
+}
+
+.vesper-noise-wrapper:hover {
+  box-shadow: 0 0 22px rgba(129, 140, 248, 0.4);
+}
+
+.vesper-noise-btn {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+  color: #ffffff;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border: none;
+  box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.25), 0px 1px 2px 0px rgba(0, 0, 0, 0.8);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.vesper-noise-btn:active {
+  transform: scale(0.96);
+}
+
+/* ---------- Verdict tokens ---------- */
+
+.verdict-false { color: #F87171; }
+.verdict-false-bg { background: rgba(248, 113, 113, 0.08); border-color: rgba(248, 113, 113, 0.2); }
+
+.verdict-true { color: #2DD4BF; }
+.verdict-true-bg { background: rgba(45, 212, 191, 0.08); border-color: rgba(45, 212, 191, 0.2); }

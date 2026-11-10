@@ -1,0 +1,20 @@
+# API runtime and HTTP/HTML processing (main.py).
+fastapi>=0.115,<1.0
+uvicorn>=0.30,<1.0
+pydantic>=2.9,<3.0
+requests>=2.32.3,<3.0
+beautifulsoup4>=4.12.3,<5.0
+
+# Both active pickle files record scikit-learn 1.9.1.
+# joblib 1.6.0 is recorded in docs/ENGLISH_V1_DIAGNOSTICS.md.
+# Keep the serialization environment stable; do not retrain to resolve installs.
+joblib==1.6.0
+scikit-learn==1.9.1
+numpy>=2.0,<3.0
+
+# Training scripts and the optional local-dataset diagnostic import pandas.
+# These tools are not required to start the API; do not run training for setup.
+pandas>=2.2,<3.0
+
+# FastAPI TestClient in tests/test_edge_cases.py.
+httpx>=0.27,<0.29

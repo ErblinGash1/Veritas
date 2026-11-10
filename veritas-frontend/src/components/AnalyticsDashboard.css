@@ -1,0 +1,59 @@
+/* Veritas Premium — Analytics, scoped styles */
+.va-analytics {
+  --va-stroke: rgba(155, 195, 238, .15);
+  position: relative; isolation: isolate;
+  width: min(1230px, 100%); margin: 0 auto;
+  padding: 64px 26px 95px; color: #f2f7ff;
+  animation: va-appear .55s ease-out both;
+}
+.va-aurora {
+  position: absolute; z-index: -1; pointer-events: none;
+  top: -190px; left: 50%; width: min(1150px, 100%);
+  height: 650px; transform: translateX(-50%);
+  background: radial-gradient(ellipse at 38% 38%, rgba(70, 111, 218, .22), transparent 60%),
+    radial-gradient(ellipse at 72% 51%, rgba(39, 170, 215, .13), transparent 65%);
+  filter: blur(75px); animation: va-pulse 9s ease-in-out infinite;
+}
+.va-header { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:35px; }
+.va-eyebrow { display:inline-flex; gap:10px; align-items:center; color:#9ccefa; font-weight:700; font-size:10px; letter-spacing:1.25px; }
+.va-separator { color:#516b89; }
+.va-header h1 { margin:20px 0 13px; font-size:clamp(36px, 5vw, 58px); font-weight:760; letter-spacing:-.058em; line-height:1.12; }
+.va-header h1 span { color:#9dd5ff; }
+.va-header p { max-width:615px; margin:0; color:#a9bbd0; font-size:14px; line-height:1.7; }
+.va-refresh, .va-error button { display:inline-flex; justify-content:center; align-items:center; gap:10px; flex-shrink:0; padding:12px 16px; border-radius:11px; border:1px solid rgba(162,201,247,.24); background:rgba(26,44,67,.85); color:#e0efff; cursor:pointer; font-weight:650; font-size:12px; }
+.va-refresh:hover:not(:disabled), .va-error button:hover { background:rgba(46,78,110,.85); border-color:rgba(162,201,247,.45); }
+.va-refresh:disabled { opacity:.58; cursor:wait; }
+.va-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; margin-bottom:23px; }
+.va-metric { border:1px solid var(--va-stroke); border-radius:18px; padding:23px; min-width:0; background:linear-gradient(135deg,rgba(23,40,61,.96),rgba(13,25,43,.98)); box-shadow:0 16px 35px rgba(0,0,0,.09),inset 0 1px 0 rgba(255,255,255,.025); transition:transform .25s ease,border-color .25s ease; }
+.va-metric:hover { transform:translateY(-3px); border-color:rgba(151,199,251,.3); }
+.va-metric-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:25px; }
+.va-metric-label { font-size:10px; letter-spacing:1.05px; text-transform:uppercase; font-weight:750; color:#a4b9d1; line-height:1.5; }
+.va-metric-icon { width:34px; height:34px; border-radius:11px; display:grid; place-items:center; color:#9bcffc; border:1px solid rgba(153,204,255,.12); background:rgba(122,174,220,.09); }
+.va-metric-value { display:block; font-variant-numeric:tabular-nums; font-size:clamp(28px,3vw,42px); line-height:1.12; letter-spacing:-1.5px; color:#f1f7ff; }
+.va-metric--red .va-metric-value { color:#ff9aa6; }
+.va-metric--teal .va-metric-value { color:#7ce1d0; }
+.va-metric--ice .va-metric-value { color:#a7d9ff; }
+.va-metric-detail { display:block; margin-top:10px; font-size:11px; color:#95abc4; line-height:1.55; }
+.va-charts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.va-chart-card { min-width:0; border:1px solid var(--va-stroke); border-radius:20px; background:linear-gradient(150deg,#142337,#0d182a); padding:26px 23px 22px; overflow:hidden; }
+.va-chart-heading { display:flex; align-items:flex-start; gap:13px; min-height:83px; }
+.va-chart-icon { flex-shrink:0; width:39px; height:39px; display:grid; place-items:center; color:#a0d9ff; border-radius:11px; background:rgba(96,161,228,.11); border:1px solid rgba(151,202,251,.15); }
+.va-chart-heading h2 { margin:1px 0 7px; font-size:16px; letter-spacing:-.35px; font-weight:720; }
+.va-chart-heading p { margin:0; font-size:12px; line-height:1.6; color:#98aec8; }
+.va-chart-content { width:100%; height:305px; margin-top:12px; }
+.va-method-note { margin-top:22px; display:flex; align-items:flex-start; gap:13px; padding:19px 22px; border:1px solid rgba(134,180,223,.15); border-radius:15px; background:rgba(23,42,63,.5); color:#a9bed5; }
+.va-method-note svg { flex-shrink:0; margin-top:2px; color:#9acdf3; }
+.va-method-note p { font-size:12px; line-height:1.75; margin:0; }
+.va-error { display:flex; align-items:center; gap:14px; margin-bottom:22px; padding:16px 18px; border:1px solid rgba(248,129,153,.28); border-radius:13px; background:rgba(135,43,65,.12); color:#ffc0c9; font-size:13px; }
+.va-error button { margin-left:auto; }
+.va-loading, .va-empty { display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; padding:85px 20px; border:1px solid var(--va-stroke); border-radius:18px; background:rgba(19,35,55,.75); color:#a5bdd6; }
+.va-empty h2 { color:#f2f7ff; margin:8px 0 0; font-size:19px; }
+.va-empty p,.va-loading p { margin:0; font-size:13px; line-height:1.65; }
+.va-spinner { width:32px; height:32px; border:3px solid #334f69; border-top-color:#b8e4ff; border-radius:50%; animation:va-spin 850ms linear infinite; }
+@keyframes va-spin { to { transform:rotate(360deg); } }
+@keyframes va-appear { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes va-pulse { 0%,100% { opacity:.6; transform:translateX(-50%) scale(.95); } 50% { opacity:1; transform:translateX(-50%) scale(1.12); } }
+@media(max-width:1050px) { .va-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:780px) { .va-analytics { padding:44px 18px 65px; } .va-header { flex-direction:column; align-items:flex-start; } .va-charts { grid-template-columns:1fr; } .va-chart-content { height:280px; } }
+@media(max-width:480px) { .va-analytics { padding-left:12px; padding-right:12px; } .va-metrics { gap:10px; } .va-metric { padding:15px; } .va-metric-top { margin-bottom:20px; } .va-metric-label { font-size:9px; } .va-metric-detail { font-size:10px; } .va-chart-card { padding:22px 12px 17px; } .va-chart-content { height:255px; } .va-error { flex-wrap:wrap; } .va-error button { margin-left:0; } }
+@media(prefers-reduced-motion:reduce) { .va-aurora,.va-analytics,.va-spinner { animation:none; } .va-metric { transition:none; } .va-metric:hover { transform:none; } }
