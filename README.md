@@ -4,23 +4,6 @@ Veritas AI is a university demonstration project for examining news text and art
 
 **Veritas AI does not independently verify facts.** A low heuristic score, a `REAL` label or a high model probability does not establish that an article is true. Use the output to guide further source checking, not as a factual verdict.
 
-## Professor review branch
-
-This source-code-only branch is an independent-history snapshot of `main` at
-`b8ac9f23`, prepared for private university review. It includes the application
-source, tests, configuration templates, documentation and required UI assets.
-Pretrained ML model files and training datasets are intentionally excluded pending
-redistribution-rights clarification. No model artifacts are present in this
-branch's ancestry.
-
-The application code is unchanged. FastAPI can start without pretrained artifacts
-and its heuristic analysis remains available. The English and Albanian ML endpoints
-require separately obtained, compatible, authorized model files at the documented
-paths to perform inference. Without loaded models, they return HTTP 503; Laravel
-treats ML output as optional. Do not use training scripts to work around missing models,
-and do not commit model or dataset files to this review branch. Existing model files
-and the original README remain on the separate local `main` branch.
-
 ## Architecture
 
 ```text
@@ -40,7 +23,7 @@ FastAPI (:5001)
 | --- | --- |
 | [`veritas-frontend/`](veritas-frontend/README.md) | React 19, Vite 8, Tailwind CSS and Recharts; scanner, results, History and Analytics |
 | [`veritas-backend/`](veritas-backend/README.md) | Laravel 13 API; validation, Python service calls, MySQL persistence and aggregated queries |
-| [`ai-python-service/`](ai-python-service/) | FastAPI, Beautiful Soup article extraction, heuristic signals and code for two scikit-learn pipelines; pretrained artifacts excluded |
+| [`ai-python-service/`](ai-python-service/) | FastAPI, Beautiful Soup article extraction, heuristic signals and two saved scikit-learn pipelines |
 | [`docs/ENGLISH_V1_DIAGNOSTICS.md`](docs/ENGLISH_V1_DIAGNOSTICS.md) | English V1 diagnostic methodology, reproducibility details and documented limitations |
 
 The active Laravel endpoints are defined in `veritas-backend/routes/web.php`. The separate `routes/api.php` is not registered by the current bootstrap configuration.
@@ -80,16 +63,14 @@ python -m uvicorn main:app --host 127.0.0.1 --port 5001
 
 If PowerShell activation is restricted, invoke `.\.venv\Scripts\python.exe` directly in place of `python`. FastAPI documentation is available at <http://127.0.0.1:5001/docs>.
 
-ML inference requires obtaining compatible pretrained artifacts that you are authorized to use. They are not supplied by this review branch. Only after permission and compatibility are established, place them locally at these paths (the files remain ignored):
+Keep both existing model files at their current paths:
 
 - `ai-python-service/english_fake_news_pipeline_v1.pkl`
 - `ai-python-service/albanian_fake_news_pipeline.pkl`
 
-Restart FastAPI after placing authorized model files so they can be loaded at startup.
+Both artifacts record scikit-learn `1.9.1`. `requirements.txt` pins that version and the previously documented joblib `1.6.0`; it declares NumPy for inference/diagnostics and pandas for training/optional dataset diagnostics. Other dependencies use bounded version ranges, not a complete reproducible lock. The original NumPy, SciPy and pandas versions are not recorded. Scikit-learn advises matching the persistence environment and only loading trusted artifacts: see its [model persistence documentation](https://scikit-learn.org/stable/model_persistence.html).
 
-The excluded demonstration artifacts record scikit-learn `1.9.1`. `requirements.txt` pins that version and the previously documented joblib `1.6.0`; it declares NumPy for inference/diagnostics and pandas for training/optional dataset diagnostics. Other dependencies use bounded version ranges, not a complete reproducible lock. The original NumPy, SciPy and pandas versions are not recorded. Scikit-learn advises matching the persistence environment and only loading trusted artifacts: see its [model persistence documentation](https://scikit-learn.org/stable/model_persistence.html).
-
-On the original model-equipped installation, the earlier publication pass successfully installed these requirements in an isolated Python 3.12.10 environment with NumPy 2.5.4, SciPy 1.18.1 and pandas 2.3.3. Dependency consistency checks, both model loads and in-process prediction/validation checks passed. This verifies that tested environment, not every version permitted by the ranges or a reconstruction of the original training environment.
+The publication pass successfully installed these requirements in an isolated Python 3.12.10 environment with NumPy 2.5.4, SciPy 1.18.1 and pandas 2.3.3. Dependency consistency checks, both model loads and in-process prediction/validation checks passed. This verifies that tested environment, not every version permitted by the ranges or a reconstruction of the original training environment.
 
 **Do not run training scripts to install or start the application.** They are research utilities, and the Albanian trainer writes to the active model path. The English trainer currently produces a V3 artifact, while the application serves V1. Training CSVs are local, ignored by Git and unnecessary for inference. If either model fails to load, its ML endpoint returns 503; check startup messages and dependency compatibility instead of replacing or retraining it.
 
@@ -125,14 +106,9 @@ npm ci
 npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
 ```
 
-A clean frontend `npm ci` installation was verified after the lockfile repair in
-`f03434a3`, starting without `node_modules` and installing 191 packages without
-using a copied dependency folder. The subsequent `npm run build` production build
-also passed. Verification used Node.js 22.21.0 and npm 10.9.4 on Windows.
-
 Open <http://127.0.0.1:5173>. Vite proxies `/api` to Laravel at `http://127.0.0.1:8001`; the client defaults to `/api/v1`. `VITE_API_URL` can override the API base at build time. Never put secrets in `VITE_*` variables because they are included in browser assets.
 
-The existing `start-veritas.bat` is a convenience launcher for an already configured Windows installation. It explicitly requires `py -3.15` and uses that interpreter's packages, rather than the virtual environment above. It is not a dependency installer; a busy port is not proof that a service is healthy. It also refuses to start when the model files are absent. Use the manual service commands above for this source-only review; they allow heuristic operation without the excluded models.
+The existing `start-veritas.bat` is a convenience launcher for an already configured Windows installation. It explicitly requires `py -3.15` and uses that interpreter's packages, rather than the virtual environment above. It is not a dependency installer; a busy port is not proof that a service is healthy. Use the manual commands if its interpreter is unavailable.
 
 ## Checks and testing
 
@@ -152,15 +128,6 @@ php vendor/bin/phpunit --do-not-cache-result
 # ai-python-service, using the installed Python environment
 python -m pip check
 python -X utf8 tests/test_edge_cases.py
-```
-
-The commands above work without pretrained models. The model sample scripts and
-English V1 evaluator below require compatible, authorized artifacts at the paths
-listed earlier; skip them in the model-free review checkout. The optional holdout
-audit additionally requires its separately authorized local dataset.
-
-```powershell
-# ai-python-service; only after obtaining the required authorized model files
 python -X utf8 tests/test_english.py --model v1
 python -X utf8 tests/test_albanian.py
 python -X utf8 tests/diagnostics/evaluate_english_v1.py
@@ -170,7 +137,7 @@ The edge-case script uses FastAPI's in-process TestClient and asserts validation
 
 The English V1 evaluator runs offline, verifies the model hash and reports performance on its fixed diagnostic cases. Its optional WELFake holdout audit requires the separate local CSV; see the [diagnostics documentation](docs/ENGLISH_V1_DIAGNOSTICS.md) before interpreting those results. Neither diagnostic is an independent, representative fact-checking benchmark.
 
-The earlier model-equipped publication checks passed all 24 edge-case assertions and nine additional in-process OpenAPI/ML endpoint checks. These are historical results from the original installation; this review branch supports the model-independent edge-case checks and expected missing-model 503 responses. English sample diagnostics reported two correct and two incorrect classifications; the fixed V1 evaluator reproduced its documented production-threshold matrices. These results demonstrate execution and existing limitations, not verified accuracy. The installed Starlette emits a non-blocking deprecation warning for its httpx-based TestClient; the current tests still pass.
+The publication checks passed all 24 edge-case assertions and nine additional in-process OpenAPI/ML endpoint checks. English sample diagnostics reported two correct and two incorrect classifications; the fixed V1 evaluator reproduced its documented production-threshold matrices. These results demonstrate execution and existing limitations, not verified accuracy. The installed Starlette emits a non-blocking deprecation warning for its httpx-based TestClient; the current tests still pass.
 
 The Laravel tests are starter examples, not full API coverage. Their configuration uses in-memory SQLite with array-backed cache/sessions. The existing feature test expects `/` to return 200, but no root route is registered, so it currently fails with 404. Frontend lint currently reports effect-state errors in `History.jsx` and `AnalyticsDashboard.jsx`, plus an unused React import in `Navbar.jsx`; the frontend production build succeeds. There is no dedicated frontend test script.
 
@@ -190,7 +157,7 @@ A complete browser/API integration test would create analysis and request-log ro
 
 **Publishing source code on GitHub is distinct from deploying a secure public web application.** This repository documents a local university demonstration; uploading it does not supply hosting, authentication, HTTPS, service isolation or production monitoring. GitHub Pages alone cannot run Laravel, MySQL and FastAPI.
 
-Before source publication, review the actual staged files and repository history for credentials and personal data. Existing ignore rules exclude real `.env` files, dependency folders, local datasets and archives, but ignore rules do not remove previously committed material. This review branch intentionally omits saved model artifacts and training datasets because redistribution permissions remain unresolved; private repository visibility does not itself grant those rights. No project-wide license or dataset/model redistribution grant has been established by this pass; third-party dependency licenses do not license the whole project.
+Before source publication, review the actual staged files and repository history for credentials and personal data. Existing ignore rules exclude real `.env` files, dependency folders, local datasets and archives, but ignore rules do not remove previously committed material. Confirm permission to distribute the saved model artifacts and any research data. No project-wide license or dataset/model redistribution grant has been established by this pass; third-party dependency licenses do not license the whole project.
 
 Public deployment remains blocked on a separate security review and implementation:
 
