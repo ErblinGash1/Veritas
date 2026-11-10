@@ -15,8 +15,9 @@ branch's ancestry.
 
 The application code is unchanged. FastAPI can start without pretrained artifacts
 and its heuristic analysis remains available. The English and Albanian ML endpoints
-return HTTP 503 until compatible, authorized artifacts are obtained; Laravel treats
-ML output as optional. Do not use training scripts to work around missing models,
+require separately obtained, compatible, authorized model files at the documented
+paths to perform inference. Without loaded models, they return HTTP 503; Laravel
+treats ML output as optional. Do not use training scripts to work around missing models,
 and do not commit model or dataset files to this review branch. Existing model files
 and the original README remain on the separate local `main` branch.
 
@@ -39,7 +40,7 @@ FastAPI (:5001)
 | --- | --- |
 | [`veritas-frontend/`](veritas-frontend/README.md) | React 19, Vite 8, Tailwind CSS and Recharts; scanner, results, History and Analytics |
 | [`veritas-backend/`](veritas-backend/README.md) | Laravel 13 API; validation, Python service calls, MySQL persistence and aggregated queries |
-| [`ai-python-service/`](ai-python-service/) | FastAPI, Beautiful Soup article extraction, heuristic signals and two saved scikit-learn pipelines |
+| [`ai-python-service/`](ai-python-service/) | FastAPI, Beautiful Soup article extraction, heuristic signals and code for two scikit-learn pipelines; pretrained artifacts excluded |
 | [`docs/ENGLISH_V1_DIAGNOSTICS.md`](docs/ENGLISH_V1_DIAGNOSTICS.md) | English V1 diagnostic methodology, reproducibility details and documented limitations |
 
 The active Laravel endpoints are defined in `veritas-backend/routes/web.php`. The separate `routes/api.php` is not registered by the current bootstrap configuration.
@@ -84,6 +85,8 @@ ML inference requires obtaining compatible pretrained artifacts that you are aut
 - `ai-python-service/english_fake_news_pipeline_v1.pkl`
 - `ai-python-service/albanian_fake_news_pipeline.pkl`
 
+Restart FastAPI after placing authorized model files so they can be loaded at startup.
+
 The excluded demonstration artifacts record scikit-learn `1.9.1`. `requirements.txt` pins that version and the previously documented joblib `1.6.0`; it declares NumPy for inference/diagnostics and pandas for training/optional dataset diagnostics. Other dependencies use bounded version ranges, not a complete reproducible lock. The original NumPy, SciPy and pandas versions are not recorded. Scikit-learn advises matching the persistence environment and only loading trusted artifacts: see its [model persistence documentation](https://scikit-learn.org/stable/model_persistence.html).
 
 On the original model-equipped installation, the earlier publication pass successfully installed these requirements in an isolated Python 3.12.10 environment with NumPy 2.5.4, SciPy 1.18.1 and pandas 2.3.3. Dependency consistency checks, both model loads and in-process prediction/validation checks passed. This verifies that tested environment, not every version permitted by the ranges or a reconstruction of the original training environment.
@@ -122,13 +125,10 @@ npm ci
 npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
 ```
 
-At the committed `b8ac9f23` snapshot, `npm ci` currently rejects the frontend
-lockfile because entries for `@emnapi/core@1.11.3` and
-`@emnapi/runtime@1.11.3` are missing. This review preserves that committed
-lockfile and excludes the unrelated unstaged local lockfile change. A separately
-reviewed lockfile repair is required before a fresh frontend installation can
-succeed. Build/lint checks using copied, already installed dependencies do not
-establish that a clean install works.
+A clean frontend `npm ci` installation was verified after the lockfile repair in
+`f03434a3`, starting without `node_modules` and installing 191 packages without
+using a copied dependency folder. The subsequent `npm run build` production build
+also passed. Verification used Node.js 22.21.0 and npm 10.9.4 on Windows.
 
 Open <http://127.0.0.1:5173>. Vite proxies `/api` to Laravel at `http://127.0.0.1:8001`; the client defaults to `/api/v1`. `VITE_API_URL` can override the API base at build time. Never put secrets in `VITE_*` variables because they are included in browser assets.
 
